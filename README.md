@@ -1,80 +1,87 @@
-# Listagem de Dívidas - WireMock + API REST Java (Feign + Swagger + Hexagonal)
+# WireMock standalone (JAR)
 
-Projeto com:
-- **WireMock** em Docker simulando a API de listagem de dívidas
-- **Aplicação REST Java** (Spring Boot) que consome essa API via **Feign** e expõe endpoint com **Swagger**, em **arquitetura hexagonal**
+Esta pasta permite rodar o WireMock **via JAR** (sem Docker), na porta **8080**.
 
 ## Estrutura
 
 ```
-feign/
-├── docker-compose.yml          # Sobe o WireMock na porta 8080
-├── wiremock/
-│   └── mappings/               # Stubs da API mockada
-│       ├── listagem-dividas.json
-│       └── health.json
-└── listagem-dividas-java/      # API REST Java
-    ├── pom.xml
-    └── src/main/java/.../br/com/bradesco/listagemdividas/
-        ├── ListagemDividasApplication.java
-        ├── core/               # Núcleo (hexagonal)
-        │   ├── domain/         # Porta de saída + request de domínio
-        │   └── usecase/        # Caso de uso
-        └── adapter/
-            ├── input/          # Controller REST + DTOs (Swagger)
-            └── output/         # Cliente Feign + adaptador da porta
+wiremock-jar/
+├── mappings/          # Stubs (listagem-dividas, health)
+├── __files/           # Arquivos estáticos (opcional)
+├── run.bat            # Executa no Windows
+├── run.sh             # Executa no Linux/macOS
+└── README.md
 ```
 
-## Como rodar
+## Pré-requisito
 
-### 1. Subir o WireMock
+- **Java 11+** no PATH.
 
-```bash
-docker-compose up -d
+## 1. Baixar o JAR do WireMock
+
+Baixe o JAR standalone (uma vez) e coloque nesta pasta:
+
+- **Maven Central:**  
+  [wiremock-standalone-3.3.1.jar](https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.3.1/wiremock-standalone-3.3.1.jar)
+
+- **PowerShell (baixar direto):**
+  ```powershell
+  cd wiremock-jar
+  Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.3.1/wiremock-standalone-3.3.1.jar" -OutFile "wiremock-standalone-3.3.1.jar"
+  ```
+
+## 2. Executar
+
+- **Windows:** dê duplo clique em `run.bat` ou no terminal:
+  ```cmd
+  cd wiremock-jar
+  run.bat
+  ```
+
+- **Linux/macOS:**
+  ```bash
+  cd wiremock-jar
+  chmod +x run.sh
+  ./run.sh
+  ```
+
+O WireMock sobe em **http://localhost:8080** com os mesmos stubs da pasta Docker (`POST /api/listagem-dividas`, `GET /api/listagem-dividas/health`). A aplicação Java pode usar a mesma URL (`http://localhost:8080`) no `application.yml`.
+
+---
+
+## Rodar pelo terminal (sem scripts)
+
+Sem usar `run.bat` nem `run.sh`, apenas comandos no terminal.
+
+### 1. Baixar o JAR (uma vez)
+
+No **PowerShell**:
+
+```powershell
+cd wiremock-jar
+Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.3.1/wiremock-standalone-3.3.1.jar" -OutFile "wiremock-standalone-3.3.1.jar" -UseBasicParsing
 ```
 
-A API mockada fica em **http://localhost:8080**:
-- `POST /api/listagem-dividas` → retorna listagem de dívidas (JSON em snake_case)
-- `GET /api/listagem-dividas/health` → health check
+Ou baixe manualmente o [wiremock-standalone-3.3.1.jar](https://repo1.maven.org/maven2/org/wiremock/wiremock-standalone/3.3.1/wiremock-standalone-3.3.1.jar) e coloque na pasta `wiremock-jar`.
 
-### 2. Rodar a aplicação Java
+### 2. Subir o WireMock
 
-Requer **Maven** instalado (ou use a sua IDE para rodar `ListagemDividasApplication`).
+No **PowerShell** ou **CMD**:
 
-```bash
+```powershell
+cd wiremock-jar
+java -jar wiremock-standalone-3.3.1.jar --port 8080 --root-dir . --global-response-templating --verbose
+```
+
+Para encerrar: **Ctrl+C**.
+
+### 3. Rodar a API Java
+
+Em **outro** terminal:
+
+```powershell
 cd listagem-dividas-java
 mvn spring-boot:run
 ```
 
-A API Java sobe em **http://localhost:9090**:
-- **Swagger UI:** http://localhost:9090/swagger-ui.html
-- **Endpoint:** `POST http://localhost:9090/api/listagem-dividas`  
-  Corpo de exemplo (JSON em snake_case):
-
-```json
-{
-  "codigo_filial_cnpj_cliente": "0001",
-  "controle_cpf_cnpj_cliente": "0",
-  "cpf_cnpj_assessoria": "12345678901",
-  "codigo_filial_cnpj_assessoria": "0001",
-  "controle_cpf_cnpj_assessoria": "0",
-  "codigo_tipo_canal": 1,
-  "portfolios": ["banco", "cartao"]
-}
-```
-
-A aplicação Java chama o WireMock via Feign e repassa a resposta no formato `DefaultResponse<ListagemDividasResponseDTO>`.
-
-## Arquitetura hexagonal
-
-- **Core (domain):** `ListagemDividasPort` (porta de saída), `ListagemDividasRequest`
-- **Core (usecase):** `ListagemDividasUseCase` orquestra a porta
-- **Adapter input:** `ListagemDividasController` (REST), DTOs de request/response, Swagger
-- **Adapter output:** `ListagemDividasFeignClient` (Feign) + `ListagemDividasFeignAdapter` (implementa a porta)
-
-## Tecnologias
-
-- Java 17, Spring Boot 3.2, Spring Cloud OpenFeign
-- SpringDoc OpenAPI (Swagger 3)
-- WireMock 3.3.1 (Docker)
-- Lombok, Jackson (snake_case para contrato da API)
+Swagger: **http://localhost:9090/swagger-ui.html**
