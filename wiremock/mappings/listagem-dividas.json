@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/listagem-dividas",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "mensagem": "Listagem obtida com sucesso",
+      "sucesso": true,
+      "timestamp": "{{now format='yyyy-MM-dd HH:mm:ss'}}",
+      "dados": {
+        "numero_acordo": 12345,
+        "tipo_pessoa": "F",
+        "cpf_cnpj_cliente": 12345678901,
+        "codigo_filial_cnpj_cliente": 1,
+        "controle_cpf_cnpj_cliente": 0,
+        "nome_cliente": "Cliente Teste",
+        "flag_evento": "S",
+        "score": "A",
+        "composicao_realizada_p2": "N",
+        "composicao_realizada_b2k": "N",
+        "contrato": [
+          {
+            "numero_controle_contrato": 1001,
+            "produto_vinculado_contrato": "CDC",
+            "valor_a_vencer_contrato": 5000.00,
+            "valor_vencido_contrato": 1000.00,
+            "valor_total_divida_contrato": 6000.00,
+            "valor_no_vencimento_contrato": 5000.00,
+            "codigo_estado_operacional_contrato": "AT",
+            "dias_atraso_contrato": 0,
+            "quantidade_parcelas_vencer_contrato": 10,
+            "quantidade_parcelas_vencidas_contrato": 0,
+            "quantidade_parcelas_pagas": 0,
+            "data_celebracao_contrato": "2024-01-15",
+            "valor_principal_contrato": 5500.00
+          }
+        ]
+      },
+      "campos": []
+    }
+  }
+}

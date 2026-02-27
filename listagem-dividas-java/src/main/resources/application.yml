@@ -1,0 +1,29 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: listagem-dividas-api
+
+# Cliente Feign aponta para o WireMock (docker)
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 10000
+
+listagem-dividas:
+  wiremock:
+    url: http://localhost:8080
+
+# Swagger / OpenAPI - documentação dos endpoints
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha

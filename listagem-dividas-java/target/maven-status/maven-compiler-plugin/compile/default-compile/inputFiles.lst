@@ -1,0 +1,12 @@
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\domain\ListagemDividasPort.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\dto\BaseListagemDividas.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\dto\DadosContratoResponseDTO.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\dto\ListagemDividasResponseDTO.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\adapter\output\client\ListagemDividasFeignClient.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\adapter\input\controller\dto\request\ListagemDividasRequestDTO.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\adapter\input\controller\ListagemDividasController.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\usecase\ListagemDividasUseCase.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\adapter\output\ListagemDividasFeignAdapter.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\dto\DefaultResponse.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\ListagemDividasApplication.java
+C:\Users\rodri\OneDrive\Documentos\bradeco\feign\listagem-dividas-java\src\main\java\br\com\bradesco\listagemdividas\core\domain\ListagemDividasRequest.java
